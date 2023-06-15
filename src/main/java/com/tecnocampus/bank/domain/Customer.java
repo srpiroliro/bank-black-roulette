@@ -1,5 +1,6 @@
 package com.tecnocampus.bank.domain;
 
+import com.tecnocampus.bank.application.dto.AccountDTO;
 import com.tecnocampus.bank.application.dto.CustomerDTO;
 
 import java.text.SimpleDateFormat;
