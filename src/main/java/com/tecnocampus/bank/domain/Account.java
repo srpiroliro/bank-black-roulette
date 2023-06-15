@@ -38,7 +38,6 @@ public class Account {
         return COUNTRY_CODE+String.valueOf((int) (Math.random()*Math.pow(10, 18)));
     };
 
-    // CHECK: create 1 funciton for each action? (deposit (+), withdraw (-)) or this is enough?
     public void updateBalance(double newBalance) {
         balance=newBalance;
     }
