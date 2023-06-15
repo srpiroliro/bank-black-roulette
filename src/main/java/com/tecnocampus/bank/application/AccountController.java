@@ -1,10 +1,12 @@
 package com.tecnocampus.bank.application;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 
-import com.tecnocampus.bank.application.dto.AccountDTO;
 import com.tecnocampus.bank.domain.Account;
 import com.tecnocampus.bank.domain.Customer;
+import com.tecnocampus.bank.application.dto.AccountDTO;
 import com.tecnocampus.bank.persistence.AccountRepository;
 import com.tecnocampus.bank.persistence.CustomerRepository;
 
@@ -20,6 +22,18 @@ public class AccountController {
         this.customerRepository=customerRepository;
     }
 
+    public AccountDTO getAccount(String accountId) {
+        return new AccountDTO(accountRepository.findById(accountId).get());
+    }
+
+    public List<AccountDTO> getAccountsByCustomerId(String customerId) {
+        // CHECK
+        return accountRepository.findAllByCustomerId(customerId)
+                                .stream()
+                                .map(AccountDTO::new)
+                                .collect(Collectors.toList()); 
+    }
+
     public AccountDTO createAccount(String customerId, AccountDTO accountDTO) throws Exception {
         Customer customer=customerRepository.findById(customerId).get();
         Account account=new Account(accountDTO, customer);
@@ -31,6 +45,11 @@ public class AccountController {
 
         return new AccountDTO(account);
     }
+    
+    public void deleteAccount(String accountId){
+        accountRepository.deleteById(accountId);
+    }
+
 
 
     public AccountDTO balanceRoulette(String customerId, String accountId) throws Exception {

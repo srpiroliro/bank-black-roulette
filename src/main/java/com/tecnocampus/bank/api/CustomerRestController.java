@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
 
 @RestController
 public class CustomerRestController {
@@ -20,9 +21,8 @@ public class CustomerRestController {
     }
 
 
-
     @GetMapping("/customers")
-    public CustomerDTO getAllCustomers() throws Exception {
+    public List<CustomerDTO> getAllCustomers() throws Exception {
         return customerController.getAllCustomers();
     }
 
@@ -39,12 +39,12 @@ public class CustomerRestController {
     }
 
     @PutMapping("/customers/{id}")
-    public CustomerDTO updateCustomer(@PathVariable String id) throws Exception {
-        return customerController.updateCustomer(id);
+    public CustomerDTO updateCustomer(@PathVariable String id, @RequestBody CustomerDTO customerDTO) throws Exception {
+        return customerController.updateCustomer(id, customerDTO);
     }
 
     @DeleteMapping("/customers/{id}")
-    public CustomerDTO deleteCustomer(@PathVariable String id) throws Exception {
-        return customerController.deleteCustomer(id);
+    public void deleteCustomer(@PathVariable String id) throws Exception {
+        customerController.deleteCustomer(id);
     }   
 }
