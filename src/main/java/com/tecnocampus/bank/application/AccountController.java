@@ -27,18 +27,17 @@ public class AccountController {
     }
 
     public List<AccountDTO> getAccountsByCustomerId(String customerId) {
-        // CHECK
-        return accountRepository.findAllByCustomerId(customerId)
-                                .stream()
-                                .map(AccountDTO::new)
-                                .collect(Collectors.toList()); 
+        Customer customer=customerRepository.findById(customerId).get();
+        return customer.getAccounts().stream()
+                                    .map(AccountDTO::new)
+                                    .collect(Collectors.toList()); 
     }
 
     public AccountDTO createAccount(String customerId, AccountDTO accountDTO) throws Exception {
         Customer customer=customerRepository.findById(customerId).get();
         Account account=new Account(accountDTO, customer);
 
-        customer.addAccount(accountDTO);
+        customer.addAccount(account);
 
         accountRepository.save(account);
         customerRepository.save(customer);
@@ -67,7 +66,7 @@ public class AccountController {
 
     public AccountDTO swap(String customerId, String accountId) throws Exception {
         Account account=accountRepository.findById(accountId).get();
-        Account accountRandom=account; // TODO getRandomAccount 
+        Account accountRandom=getRandomAccount(); // CHECK: too pricey?
 
         double balance=account.getBalance();
         double balanceRandom=accountRandom.getBalance();
@@ -79,5 +78,9 @@ public class AccountController {
         accountRepository.save(accountRandom);
 
         return new AccountDTO(account);
+    }
+
+    private Account getRandomAccount() throws Exception{
+        return accountRepository.findAll().stream().findAny().get(); // CHECK: too pricey?
     }
 }

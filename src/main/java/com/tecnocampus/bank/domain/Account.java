@@ -3,8 +3,6 @@ package com.tecnocampus.bank.domain;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.NoArgsConstructor;
@@ -14,12 +12,10 @@ import com.tecnocampus.bank.application.dto.AccountDTO;
 
 @NoArgsConstructor // ???
 @Getter // ???
-@Entity(name="accounts")
+@Entity
 public class Account {
     private static final String COUNTRY_CODE="ES";
 
-    // @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    // private Long id;
     @Id
     private String id = UUID.randomUUID().toString();
 
@@ -35,7 +31,7 @@ public class Account {
     }
 
     private String generateIban(){
-        return COUNTRY_CODE+String.valueOf((int) (Math.random()*Math.pow(10, 18)));
+        return COUNTRY_CODE+String.valueOf(Math.round(Math.random()*Math.pow(10, 18)));
     };
 
     public void updateBalance(double newBalance) {

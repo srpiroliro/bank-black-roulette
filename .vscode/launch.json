@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BankRouletteApiApplication<bank-black-roulette>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.tecnocampus.bank.BankRouletteApiApplication",
+            "projectName": "bank-black-roulette",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

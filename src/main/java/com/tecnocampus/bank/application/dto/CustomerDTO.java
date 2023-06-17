@@ -2,11 +2,13 @@ package com.tecnocampus.bank.application.dto;
 
 import com.tecnocampus.bank.domain.Customer;
 
-import java.text.SimpleDateFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Getter
 public class CustomerDTO {
-    private final SimpleDateFormat dateFormat = Customer.dateFormat;
-
+    private String id;
     private String username;
     private String email;
     private String phone;
@@ -14,15 +16,14 @@ public class CustomerDTO {
 
     private String creationDate;
 
-    public CustomerDTO(){ }
+    public CustomerDTO(Customer customer){
+        id=customer.getId();
+        username=customer.getUsername();
+        email=customer.getEmail();
+        phone=customer.getPhone();
+        password=customer.getPassword();
 
-    public CustomerDTO(Customer costumer){
-        username=costumer.getUsername();
-        email=costumer.getEmail();
-        phone=costumer.getPhone();
-        password=costumer.getPassword();
-
-        creationDate=dateFormat.format(costumer.getCreationDate().getTime());
+        creationDate=Customer.dateFormat.format(customer.getCreationDate().getTime());
     }
 
     public String getUsername() {

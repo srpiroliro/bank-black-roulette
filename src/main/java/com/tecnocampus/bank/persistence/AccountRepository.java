@@ -9,4 +9,6 @@ import com.tecnocampus.bank.domain.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String> {
     List<Account> findAllByCustomerId(String customerId);
+
+    // Account findAny();
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -36,7 +37,7 @@ public class Customer {
 
     private Calendar creationDate = Calendar.getInstance();
 
-    @OneToMany(mappedBy="customer")
+    @OneToMany(mappedBy="customer", cascade=CascadeType.REMOVE)
     private List<Account> accounts = new ArrayList<>();
 
     public Customer(CustomerDTO costumerDTO) throws Exception {
@@ -71,10 +72,10 @@ public class Customer {
     public boolean canCreateAccounts() {
         return accounts.size()<MAX_ACCOUNTS;
     }
-    public void addAccount(AccountDTO accountDTO) throws Exception {
+    public void addAccount(Account account) throws Exception {
         if(!canCreateAccounts()) 
             throw new Exception("Can't create more accounts."); 
-        accounts.add(new Account(accountDTO, this));
+        accounts.add(account);
     }
 
 
